@@ -4,6 +4,8 @@ namespace Sorts
 {
     static class Program
     {
+
+        delegate void SortMethod(int[] array, int start, int end, int k);
         static void Main(string[] args)
         {
             // int[] arrayToSort = CreateRandomArray(10, 1000);
@@ -15,22 +17,20 @@ namespace Sorts
             //
             // PrintArray(arrayToSort);
 
+
+            SortMethod sortMethod = QuickSort.DoQuickSort;
+            (int optimalQuickSortK, double timeForQuickSortK) = CountOptimalSizeForHybridSort(100, 10000, 1000, sortMethod);
+            Console.WriteLine("For Quick hybrid sort");
+            Console.Write($"Optimal k: {optimalQuickSortK}\nIt's time: {timeForQuickSortK}");
             
             
-            Console.Write(CountOptimalSizeForSwitchToInsertionSort(100, 10000, 1000));
+            sortMethod = MergeSort.DoMergeSort;
+            (int optimalMergeSortK, double timeForMergeSortK) = CountOptimalSizeForHybridSort(100, 10000, 1000, sortMethod);
+            Console.WriteLine("For Merge hybrid sort");
+            Console.Write($"Optimal k: {optimalMergeSortK}\nIt's time: {timeForMergeSortK}");
         }
 
-        static void PrintArray(int[] array)
-        {
-            foreach (var element in array)
-            {
-                Console.Write(element + " ");
-            }
-            
-            Console.WriteLine();
-        }
-
-        static int CountOptimalSizeForSwitchToInsertionSort(int amountOfArrays, int sizeOfArray, int maxValueOfElement)
+        static (int, double) CountOptimalSizeForHybridSort(int amountOfArrays, int sizeOfArray, int maxValueOfElement, SortMethod sortMethod)
         {
             int k = 0;
 
@@ -46,7 +46,7 @@ namespace Sorts
             while (k <= 100)
             {
                 for (int i = 0; i < amountOfArrays; i++)
-                    currentTime += CountTimeForOneSort((int[])arrayOfArrays[i].Clone(), k);
+                    currentTime += CountTimeForOneSort((int[])arrayOfArrays[i].Clone(), k, sortMethod);
             
                 Console.WriteLine($"k = {k}, time = {currentTime / amountOfArrays}");
             
@@ -60,9 +60,17 @@ namespace Sorts
                 k++;
             }
 
-            return kForMinimalTime;
+            return (kForMinimalTime, minimalTime);
         }
-
+        static double CountTimeForOneSort(int[] arrayToSort, int k, SortMethod sortMethod)
+        {
+            var startTime = (DateTime.Now - new DateTime(2020, 9, 19)).TotalMilliseconds;
+            
+            sortMethod(arrayToSort, 0, arrayToSort.Length - 1, k);
+            
+            var endTime = (DateTime.Now - new DateTime(2020, 9, 19)).TotalMilliseconds;
+            return endTime - startTime;
+        }
         static int[] CreateRandomArray(int sizeOfArray, int maxValueOfElement)
         {
             int[] array = new int[sizeOfArray];
@@ -73,15 +81,15 @@ namespace Sorts
             }
             return array;
         }
-
-        static double CountTimeForOneSort(int[] arrayToSort, int k)
+        
+        static void PrintArray(int[] array)
         {
-            var startTime = (DateTime.Now - new DateTime(2020, 9, 19)).TotalMilliseconds;
-            QuickSort.DoQuickSort(arrayToSort, 0, arrayToSort.Length - 1, k);
-            // MergeSort.DoMergeSort(arrayToSort, 0, arrayToSort.Length - 1, k);
-            // InsertionSort.DoInsertionSort(arrayToSort, 0, arrayToSort.Length - 1);
-            var endTime = (DateTime.Now - new DateTime(2020, 9, 19)).TotalMilliseconds;
-            return endTime - startTime;
+            foreach (var element in array)
+            {
+                Console.Write(element + " ");
+            }
+            
+            Console.WriteLine();
         }
     }
 }
