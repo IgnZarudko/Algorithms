@@ -4,47 +4,47 @@
     {
         public static void DoQuickSort(int[] array, int start, int end, int k)
         {
-            if (end - start + 1 <= k)
+            if (end - start + 1 <= k) //4
             {
-                InsertionSort.DoInsertionSort(array, start, end);
-                return;
+                InsertionSort.DoInsertionSort(array, start, end);//1
+                return;//1
             }
-            if (start < end)
+            if (start < end) //2
             {
-                int border = FindBorder(array, start, end);
-                DoQuickSort(array, start, border, k);
-                DoQuickSort(array, border + 1, end, k);
+                int border = FindBorder(array, start, end); //3
+                DoQuickSort(array, start, border, k); //1
+                DoQuickSort(array, border + 1, end, k); //1
             }
         }
 
         static int FindBorder(int[] array, int start, int end)
         {
-            int borderElement = array[(start + end) / 2];
-            int i = start - 1;
-            int j = end + 1;
-            while (true)
+            int borderElement = array[(start + end) / 2]; //4
+            int i = start - 1; //3
+            int j = end + 1; //3
+            while (true) //1
             {
-                do
+                do 
                 {
-                    i++;
-                } while (array[i] < borderElement);
+                    i++; //2
+                } while (array[i] < borderElement); //2
 
-                do
+                do 
                 {
-                    j--;
-                } while (array[j] > borderElement);
+                    j--; //2
+                } while (array[j] > borderElement); //2
 
-                if (i < j)
-                    Swap(ref array[i], ref array[j]);
-                else return j;
+                if (i < j) //2
+                    Swap(ref array[i], ref array[j]); //3
+                else return j; //2
             }
         }
 
         static void Swap(ref int a, ref int b)
         {
-            int z = a;
-            a = b;
-            b = z;
+            int z = a; //2
+            a = b; //1
+            b = z; //1
         }
     }
 }
