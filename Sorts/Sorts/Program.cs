@@ -8,31 +8,31 @@ namespace Sorts
         delegate void SortMethod(int[] array, int start, int end, int k);
         static void Main(string[] args)
         {
-            // int[] arrayToSort = CreateRandomArray(10, 1000);
-            // PrintArray(arrayToSort);
-            //
-            // InsertionSort.DoInsertionSort(arrayToSort, 0, arrayToSort.Length - 1);
-            // QuickSort.DoQuickSort(arrayToSort, 0, arrayToSort.Length - 1, 0);
-            // MergeSort.DoMergeSort(arrayToSort, 0, arrayToSort.Length - 1, 0);
-            //
-            // PrintArray(arrayToSort);
+            int[] arrayToSort = CreateRandomArray(10, 1000);
+            PrintArray(arrayToSort);
+            
+            InsertionSort.DoInsertionSort(arrayToSort, 0, arrayToSort.Length - 1);
+            QuickSort.DoQuickSort(arrayToSort, 0, arrayToSort.Length - 1, 0);
+            MergeSort.DoMergeSort(arrayToSort, 0, arrayToSort.Length - 1, 0);
+            
+            PrintArray(arrayToSort);
 
 
             SortMethod sortMethod = QuickSort.DoQuickSort;
             (int optimalQuickSortK, double timeForQuickSortK) = CountOptimalSizeForHybridSort(100, 10000, 1000, sortMethod);
             Console.WriteLine("For Quick hybrid sort");
-            Console.Write($"Optimal k: {optimalQuickSortK}\nIt's time: {timeForQuickSortK}");
+            Console.WriteLine($"Optimal k: {optimalQuickSortK}\nIt's time: {timeForQuickSortK}");
             
             
             sortMethod = MergeSort.DoMergeSort;
             (int optimalMergeSortK, double timeForMergeSortK) = CountOptimalSizeForHybridSort(100, 10000, 1000, sortMethod);
             Console.WriteLine("For Merge hybrid sort");
-            Console.Write($"Optimal k: {optimalMergeSortK}\nIt's time: {timeForMergeSortK}");
+            Console.WriteLine($"Optimal k: {optimalMergeSortK}\nIt's time: {timeForMergeSortK}");
         }
 
         static (int, double) CountOptimalSizeForHybridSort(int amountOfArrays, int sizeOfArray, int maxValueOfElement, SortMethod sortMethod)
         {
-            int k = 0;
+            int k = 1;
 
             double minimalTime = Double.MaxValue;
             int kForMinimalTime = -1;
