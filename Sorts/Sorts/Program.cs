@@ -47,12 +47,14 @@ namespace Sorts
             {
                 for (int i = 0; i < amountOfArrays; i++)
                     currentTime += CountTimeForOneSort((int[])arrayOfArrays[i].Clone(), k, sortMethod);
+
+                currentTime /= amountOfArrays;
+                
+                Console.WriteLine($"k = {k}, time = {currentTime}");
             
-                Console.WriteLine($"k = {k}, time = {currentTime / amountOfArrays}");
-            
-                if (minimalTime > currentTime / amountOfArrays)
+                if (minimalTime > currentTime)
                 {
-                    minimalTime = currentTime / amountOfArrays;
+                    minimalTime = currentTime;
                     kForMinimalTime = k;
                 }
                 
