@@ -4,8 +4,6 @@
     {
         public static void DoInsertionSort(int[] array, int start, int end)
         {
-            end = end == -1 ? array.Length : end; //3
-            
             for (int i = start + 1; i <= end; i++) //6
             {
                 int key = array[i]; //3
