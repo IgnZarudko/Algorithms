@@ -19,13 +19,13 @@ namespace Sorts
 
 
             SortMethod sortMethod = QuickSort.DoQuickSort;
-            (int optimalQuickSortK, double timeForQuickSortK) = CountOptimalSizeForHybridSort(100, 10000, 1000, sortMethod);
+            (int optimalQuickSortK, double timeForQuickSortK) = CountOptimalSizeForHybridSort(100, 100000, 1000000, sortMethod);
             Console.WriteLine("For Quick hybrid sort");
             Console.WriteLine($"Optimal k: {optimalQuickSortK}\nIt's time: {timeForQuickSortK}");
             
             
             sortMethod = MergeSort.DoMergeSort;
-            (int optimalMergeSortK, double timeForMergeSortK) = CountOptimalSizeForHybridSort(100, 10000, 1000, sortMethod);
+            (int optimalMergeSortK, double timeForMergeSortK) = CountOptimalSizeForHybridSort(100, 100000, 1000000, sortMethod);
             Console.WriteLine("For Merge hybrid sort");
             Console.WriteLine($"Optimal k: {optimalMergeSortK}\nIt's time: {timeForMergeSortK}");
         }
