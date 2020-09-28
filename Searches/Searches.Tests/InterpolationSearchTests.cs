@@ -3,7 +3,7 @@
 namespace Searches.Tests
 {
     [TestFixture]
-    public class BinarySearchTests
+    public class InterpolationSearchTests
     {
         [TestCase(new [] {1, 2, 3, 4, 5, 6, 7, 8, 9}, 9, 8)]
         [TestCase(new [] {1, 2, 3, 4, 5, 6, 7, 8, 9}, 1, 0)]
@@ -15,10 +15,10 @@ namespace Searches.Tests
 
 
         
-        public void BinarySearchTest(int[] array, int numberToFind, int expected)
+        public void InterpolationSearchTest(int[] array, int numberToFind, int expected)
         {
             int counter = 0;
-            Assert.AreEqual(expected, BinarySearch.Execute(array, numberToFind, ref counter));
+            Assert.AreEqual(expected, InterpolationSearch.Execute(array, numberToFind, ref counter));
         }
     }
 }
