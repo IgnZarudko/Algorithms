@@ -1,34 +1,37 @@
-﻿namespace Searches
+﻿using System;
+
+namespace Searches
 {
     public static class InterpolationSearch
     {
         public static int Execute(int[] array, int numberToFind, ref int amountOfComparisons)
         {
-            int indexOfElement = -1;
-
+            int index = -1;
             int start = 0;
             int end = array.Length - 1;
 
-            amountOfComparisons = 1;
-            if (numberToFind > array[end] || numberToFind < array[start])
-                return indexOfElement;
-            
-            while (start <= end)
+            while (array[end] != array[start] && numberToFind >= array[start] && numberToFind <= array[end])
             {
                 int mid = start + (numberToFind - array[start]) * (end - start) / (array[end] - array[start]);
                 
-                amountOfComparisons += 2; //+1 сравнение на 21, и +1 в цикле while
-                if (array[mid] == numberToFind) 
-                    return mid;
-                
-                amountOfComparisons++;
                 if (array[mid] < numberToFind)
+                {
+                    amountOfComparisons++;
                     start = mid + 1;
-                else 
+                }
+                else if (array[mid] > numberToFind)
+                {
+                    amountOfComparisons += 2; 
                     end = mid - 1;
+                }
+                else if (array[mid] == numberToFind)
+                {
+                    amountOfComparisons += 3;
+                    return mid;
+                }
             }
 
-            return indexOfElement;
+            return index;
         } 
     }
 }

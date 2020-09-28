@@ -9,15 +9,11 @@
             int start = 0;
             int end = array.Length - 1;
 
-            amountOfComparisons = 1;
-            if (numberToFind > array[end] || numberToFind < array[start])
-                return indexOfElement;
-            
             while (start <= end)
             {
                 int mid = (start + end) / 2;
                 
-                amountOfComparisons += 2; //+1 сравнение на 21, и +1 в цикле while
+                amountOfComparisons++;
                 if (array[mid] == numberToFind) 
                     return mid;
                 
