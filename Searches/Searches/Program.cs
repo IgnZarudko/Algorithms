@@ -6,7 +6,7 @@ namespace Searches
     {
         static void Main(string[] args)
         {
-            int[] array = CreateRandomArray(10000000, 10000000);
+            int[] array = CreateRandomArray(100000000, 100000000);
             Array.Sort(array);
             // PrintArray(array);
             Random random = new Random();

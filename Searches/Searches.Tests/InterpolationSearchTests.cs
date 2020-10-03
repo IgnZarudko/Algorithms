@@ -13,8 +13,7 @@ namespace Searches.Tests
         [TestCase(new [] {1, 2, 3, 4, 5, 6, 7, 8, 9}, 8, 7)]
         [TestCase(new [] {1, 2, 3, 4, 5, 6, 7, 8, 9}, 10, -1)]
         [TestCase(new [] {1, 2, 3, 5, 6, 7, 8, 9}, 4, -1)]
-
-
+        
         public void InterpolationSearchTest(int[] array, int numberToFind, int expected)
         {
             int counter = 0;
