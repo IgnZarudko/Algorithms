@@ -6,7 +6,7 @@ namespace Searches
     {
         static void Main(string[] args)
         {
-            int[] array = CreateRandomArray(100000, 100000);
+            int[] array = CreateRandomArray(1000000, 1000000);
             Array.Sort(array);
             // PrintArray(array);
             Random random = new Random(5);
@@ -17,11 +17,11 @@ namespace Searches
             Console.WriteLine($"Its position: {Array.IndexOf(array, elementToFind)}");
 
             int amountOfComparisons = 0;
-            BinarySearch.Execute(array,3333, ref amountOfComparisons);
+            BinarySearch.Execute(array,elementToFind, ref amountOfComparisons);
             Console.WriteLine($"Amount of comparisons (Binary search): {amountOfComparisons}");
             
             amountOfComparisons = 0;
-            InterpolationSearch.Execute(array,3333, ref amountOfComparisons);
+            InterpolationSearch.Execute(array,elementToFind, ref amountOfComparisons);
             Console.WriteLine($"Amount of comparisons (Interpolation search): {amountOfComparisons}");
         }
         

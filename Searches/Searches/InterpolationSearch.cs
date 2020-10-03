@@ -6,11 +6,10 @@ namespace Searches
     {
         public static int Execute(int[] array, int numberToFind, ref int amountOfComparisons)
         {
-            int index = -1;
             int start = 0;
             int end = array.Length - 1;
 
-            while (array[end] != array[start] && numberToFind >= array[start] && numberToFind <= array[end])
+            while (array[start] < numberToFind && numberToFind < array[end])
             {
                 int mid = start + (numberToFind - array[start]) * (end - start) / (array[end] - array[start]);
                 
@@ -31,7 +30,19 @@ namespace Searches
                 }
             }
 
-            return index;
+            if (array[start] == numberToFind)
+            {
+                amountOfComparisons++;
+                return start;
+            }
+
+            if (array[end] == numberToFind)
+            {
+                amountOfComparisons += 2;
+                return end;
+            }
+
+            return -1;
         } 
     }
 }
