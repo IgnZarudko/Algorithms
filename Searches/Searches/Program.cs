@@ -6,22 +6,22 @@ namespace Searches
     {
         static void Main(string[] args)
         {
-            int[] array = CreateRandomArray(1000000, 1000000);
+            int[] array = CreateRandomArray(10000000, 10000000);
             Array.Sort(array);
             // PrintArray(array);
-            Random random = new Random(5);
-            int elementToFind = random.Next(0, array.Length - 1);
+            Random random = new Random();
+            int indexOfElementToFind = random.Next(0, array.Length - 1);
             
             
-            Console.WriteLine($"Searching element: {elementToFind}");
-            Console.WriteLine($"Its position: {Array.IndexOf(array, elementToFind)}");
+            Console.WriteLine($"Searching element: {array[indexOfElementToFind]}");
+            Console.WriteLine($"Its position: {Array.IndexOf(array, array[indexOfElementToFind])}");
 
             int amountOfComparisons = 0;
-            BinarySearch.Execute(array,elementToFind, ref amountOfComparisons);
+            BinarySearch.Execute(array, array[indexOfElementToFind], ref amountOfComparisons);
             Console.WriteLine($"Amount of comparisons (Binary search): {amountOfComparisons}");
             
             amountOfComparisons = 0;
-            InterpolationSearch.Execute(array,elementToFind, ref amountOfComparisons);
+            InterpolationSearch.Execute(array, array[indexOfElementToFind], ref amountOfComparisons);
             Console.WriteLine($"Amount of comparisons (Interpolation search): {amountOfComparisons}");
         }
         

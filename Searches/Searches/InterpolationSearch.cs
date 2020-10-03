@@ -4,15 +4,15 @@ namespace Searches
 {
     public static class InterpolationSearch
     {
-        public static int Execute(int[] array, int numberToFind, ref int amountOfComparisons)
+        public static long Execute(int[] array, int numberToFind, ref int amountOfComparisons)
         {
-            int start = 0;
-            int end = array.Length - 1;
-
-            while (array[start] < numberToFind && numberToFind < array[end])
+            long start = 0;
+            long end = array.Length - 1;
+            
+            while (array[start] < numberToFind && numberToFind < array[end] && array[start] != array[end])
             {
-                int mid = start + (numberToFind - array[start]) * (end - start) / (array[end] - array[start]);
-                
+                long mid = start + (numberToFind - array[start]) * (end - start) / (array[end] - array[start]);
+
                 if (array[mid] < numberToFind)
                 {
                     amountOfComparisons++;
@@ -26,6 +26,7 @@ namespace Searches
                 else if (array[mid] == numberToFind)
                 {
                     amountOfComparisons += 3;
+                    Console.WriteLine($"Found at {mid}");
                     return mid;
                 }
             }
@@ -33,12 +34,14 @@ namespace Searches
             if (array[start] == numberToFind)
             {
                 amountOfComparisons++;
+                Console.WriteLine($"Found at {start}");
                 return start;
             }
 
             if (array[end] == numberToFind)
             {
                 amountOfComparisons += 2;
+                Console.WriteLine($"Found at {end}");
                 return end;
             }
 

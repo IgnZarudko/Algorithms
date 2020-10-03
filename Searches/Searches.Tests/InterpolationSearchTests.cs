@@ -1,4 +1,5 @@
-﻿using NUnit.Framework;
+﻿using System;
+using NUnit.Framework;
 
 namespace Searches.Tests
 {
@@ -14,7 +15,6 @@ namespace Searches.Tests
         [TestCase(new [] {1, 2, 3, 5, 6, 7, 8, 9}, 4, -1)]
 
 
-        
         public void InterpolationSearchTest(int[] array, int numberToFind, int expected)
         {
             int counter = 0;
