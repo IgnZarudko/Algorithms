@@ -20,7 +20,7 @@ namespace BinarySearchTree
 
             binaryTree.PrintTree();
 
-            binaryTree.Remove(4);
+            binaryTree.Remove(5);
             
             Console.WriteLine();
             

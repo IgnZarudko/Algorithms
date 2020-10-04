@@ -63,7 +63,7 @@ namespace BinarySearchTree
             // Есть только один дочерний листок у удаляемого
             if (current.RightNode == null || current.LeftNode == null)
             {
-                BinaryTreeNode nodeToPlace = current.RightNode == null ? current.RightNode : current.LeftNode;
+                BinaryTreeNode nodeToPlace = current.RightNode ?? current.LeftNode;
                 if (parent == null)
                 {
                     _head = nodeToPlace;
