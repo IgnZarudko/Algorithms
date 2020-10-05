@@ -26,7 +26,6 @@ namespace Searches
                 else if (array[mid] == numberToFind)
                 {
                     amountOfComparisons += 3;
-                    Console.WriteLine($"Found at {mid}");
                     return mid;
                 }
             }
@@ -34,14 +33,12 @@ namespace Searches
             if (array[start] == numberToFind)
             {
                 amountOfComparisons++;
-                Console.WriteLine($"Found at {start}");
                 return start;
             }
 
             if (array[end] == numberToFind)
             {
                 amountOfComparisons += 2;
-                Console.WriteLine($"Found at {end}");
                 return end;
             }
 

@@ -8,7 +8,7 @@ namespace Searches
         {
             int[] array = CreateRandomArray(100000000, 100000000);
             Array.Sort(array);
-            // PrintArray(array);
+            
             Random random = new Random();
             int indexOfElementToFind = random.Next(0, array.Length - 1);
             
