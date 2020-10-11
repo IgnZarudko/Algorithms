@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System.Collections.Generic;
 
 namespace BinarySearchTree
 {
@@ -198,7 +196,6 @@ namespace BinarySearchTree
 
             int middleElement = listOfElements[listOfElements.Count / 2];
             BinaryTreeNode nodeToHead = FindByValue(middleElement);
-
             
             while (nodeToHead.Value != headOfSubtree.Value && nodeToHead.ParentNode != null)
             {
