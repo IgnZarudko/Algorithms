@@ -5,8 +5,6 @@ namespace BinarySearchTree
     public class BinaryTree
     {
         private BinaryTreeNode _head;
-        public int Count { get; private set; }
-
         public void Add(int value)
         {
             if (_head == null)
@@ -17,11 +15,9 @@ namespace BinarySearchTree
             {
                 AddTo(_head, new BinaryTreeNode(value));
             }
-
-            Count++;
         }
 
-        private void AddTo(BinaryTreeNode node, BinaryTreeNode valueNode)
+        private static void AddTo(BinaryTreeNode node, BinaryTreeNode valueNode)
         {
             if (valueNode.Value.CompareTo(node.Value) < 0)
             {
@@ -62,9 +58,6 @@ namespace BinarySearchTree
             
             BinaryTreeNode parent = current.ParentNode;
             
-            // BinaryTreeNode parent = current.ParentNode;
-
-            // Есть только один дочерний листок у удаляемого
             if (current.RightNode == null || current.LeftNode == null)
             {
                 BinaryTreeNode nodeToPlace = current.RightNode ?? current.LeftNode;
@@ -90,7 +83,6 @@ namespace BinarySearchTree
                 }
                 else
                 {
-                    //сравниваем с null чтобы сразу обойти сравнение с null в CompareTo
                     if (parent.LeftNode != null && parent.LeftNode.CompareTo(current.Value) == 0)
                     {
                         parent.LeftNode = current.LeftNode;
@@ -104,8 +96,7 @@ namespace BinarySearchTree
                     }
                 }
             }
-
-            Count--;
+            
             return true;
         }
 
