@@ -175,28 +175,11 @@ namespace BinarySearchTree
 
         public int FindKthMinimalElement(int k, BinaryTreeNode headOfSubtree = null)
         {
-            headOfSubtree ??= _head;
-            
-            List<int> elements = new List<int>();
-            FindKthMinimalElementRecursively(k, headOfSubtree, elements);
-            return elements[^1];
+            List<int> listOfElements = new List<int>();
+            InAscendingOrderWalk(headOfSubtree, listOfElements);
+
+            return listOfElements[k - 1];
         }
-
-        private void FindKthMinimalElementRecursively(int k, BinaryTreeNode node, List<int> elements)
-        {
-            if (elements.Count == k)
-            {
-                return;
-            }
-
-            if (node != null)
-            {
-                FindKthMinimalElementRecursively(k, node.LeftNode, elements);
-                elements.Add(node.Value);
-                FindKthMinimalElementRecursively(k, node.RightNode, elements);
-            }
-        }
-
         public void BalanceTree()
         {
             GetBalancedSubTree(_head);
@@ -212,8 +195,7 @@ namespace BinarySearchTree
                 return;
             }
 
-            int mid = listOfElements.Count / 2;
-            int middleElement = FindKthMinimalElement(mid, headOfSubtree);
+            int middleElement = listOfElements[listOfElements.Count / 2];
             BinaryTreeNode nodeToHead = FindByValue(middleElement);
 
             
