@@ -7,11 +7,16 @@ namespace BinarySearchTree
         public BinaryTreeNode(int value)
         {
             Value = value;
+            LeftNode = null;
+            RightNode = null;
+            ParentNode = null;
         }
         
         public BinaryTreeNode LeftNode { get; set; }
         public BinaryTreeNode RightNode { get; set; }
-        public int Value { get; private set; }
+        
+        public BinaryTreeNode ParentNode { get; set; }
+        public int Value { get; set; }
 
 
         public int CompareTo(int other)
