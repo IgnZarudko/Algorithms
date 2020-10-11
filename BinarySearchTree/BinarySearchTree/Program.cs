@@ -10,25 +10,40 @@ namespace BinarySearchTree
         {
             BinaryTree binaryTree = new BinaryTree();
 
-            //{ 1, 2, 9, 6, 7, 4, 10 }
-            binaryTree.Add(1);
-            binaryTree.Add(2);
-            binaryTree.Add(9);
-            binaryTree.Add(6);
-            binaryTree.Add(7);
-            binaryTree.Add(4);
-            binaryTree.Add(10);
-            // binaryTree.Add(24);
+            int[] numbersToAdd = new[] {1, 2, 9, 6, 7, 4, 10};
 
+            foreach (int number in numbersToAdd)
+            {
+                binaryTree.Add(number);
+            }
+            
+            Console.WriteLine("Got Tree:");
             binaryTree.PrintTree();
+
+            Console.WriteLine("Ascending sequence:");
+            foreach (int number in binaryTree.GetAscendingSequence())
+            {
+                Console.Write($"{number} ");
+            }
             
-            Console.WriteLine(binaryTree.FindKthMinimalElement(3));
+            Console.WriteLine();
             
+            Console.WriteLine("Descending sequence:");
+            foreach (int number in binaryTree.GetDescendingSequence())
+            {
+                Console.Write($"{number} ");
+            }
+            
+            Console.WriteLine();
+
+            int k = 3;
+            Console.WriteLine($"k-th minimal element is: {binaryTree.FindKthMinimalElement(3)} (k = {k})");
+
             binaryTree.BalanceTree();
             
+            Console.WriteLine("Balanced tree:");
+            
             binaryTree.PrintTree();
-            // int number = binaryTree.FindKthMinimalElement(3);
-            // Console.WriteLine(number);
         }
     }
 }

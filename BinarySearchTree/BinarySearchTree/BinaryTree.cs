@@ -175,9 +175,10 @@ namespace BinarySearchTree
 
         public int FindKthMinimalElement(int k, BinaryTreeNode headOfSubtree = null)
         {
+            headOfSubtree ??= _head;
             List<int> listOfElements = new List<int>();
             InAscendingOrderWalk(headOfSubtree, listOfElements);
-
+            
             return listOfElements[k - 1];
         }
         public void BalanceTree()
