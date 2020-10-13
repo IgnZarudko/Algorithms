@@ -17,30 +17,30 @@ namespace BinarySearchTree
             }
         }
 
-        private static void AddTo(BinaryTreeNode node, BinaryTreeNode valueNode)
+        private static void AddTo(BinaryTreeNode parentNode, BinaryTreeNode insertNode)
         {
-            if (valueNode.Value.CompareTo(node.Value) < 0)
+            if (insertNode.Value < parentNode.Value)
             {
-                if (node.LeftNode == null)
+                if (parentNode.LeftNode == null)
                 {
-                    node.LeftNode = valueNode;
-                    valueNode.ParentNode = node;
+                    parentNode.LeftNode = insertNode;
+                    insertNode.ParentNode = parentNode;
                 }
                 else
                 {
-                    AddTo(node.LeftNode, valueNode);
+                    AddTo(parentNode.LeftNode, insertNode);
                 }
             }
-            else if (valueNode.Value.CompareTo(node.Value) > 0)
+            else if (insertNode.Value > parentNode.Value)
             {
-                if (node.RightNode == null)
+                if (parentNode.RightNode == null)
                 {
-                    node.RightNode = valueNode;
-                    valueNode.ParentNode = node;
+                    parentNode.RightNode = insertNode;
+                    insertNode.ParentNode = parentNode;
                 }
                 else
                 {
-                    AddTo(node.RightNode, valueNode);
+                    AddTo(parentNode.RightNode, insertNode);
                 }
             }
         }
@@ -49,50 +49,50 @@ namespace BinarySearchTree
 
         public bool Remove(int value)
         {
-            BinaryTreeNode current = FindByValue(value);
+            BinaryTreeNode currentNode = FindByValue(value);
 
-            if (current == null)
+            if (currentNode == null)
             {
                 return false;
             }
             
-            BinaryTreeNode parent = current.ParentNode;
+            BinaryTreeNode parentNode = currentNode.ParentNode;
             
-            if (current.RightNode == null || current.LeftNode == null)
+            if (currentNode.RightNode == null || currentNode.LeftNode == null)
             {
-                BinaryTreeNode nodeToPlace = current.RightNode ?? current.LeftNode;
-                if (parent == null)
+                BinaryTreeNode nodeToPlace = currentNode.RightNode ?? currentNode.LeftNode;
+                if (parentNode == null)
                 {
                     _head = nodeToPlace;
                 }
                 else
                 {
-                    if (parent.LeftNode.CompareTo(current.Value) == 0)
-                        parent.LeftNode = nodeToPlace;
+                    if (parentNode.LeftNode.Value == currentNode.Value)
+                        parentNode.LeftNode = nodeToPlace;
                     else
-                        parent.RightNode = nodeToPlace;
+                        parentNode.RightNode = nodeToPlace;
                 }
             }
 
-            if (current.RightNode != null && current.LeftNode != null)
+            if (currentNode.RightNode != null && currentNode.LeftNode != null)
             {
-                if (parent == null)
+                if (parentNode == null)
                 {
-                    _head = current.RightNode;
-                    AddTo(_head, current.LeftNode);
+                    _head = currentNode.RightNode;
+                    AddTo(_head, currentNode.LeftNode);
                 }
                 else
                 {
-                    if (parent.LeftNode != null && parent.LeftNode.CompareTo(current.Value) == 0)
+                    if (parentNode.LeftNode != null && parentNode.LeftNode.Value == currentNode.Value)
                     {
-                        parent.LeftNode = current.LeftNode;
-                        AddTo(parent.LeftNode, current.RightNode);
+                        parentNode.LeftNode = currentNode.LeftNode;
+                        AddTo(parentNode.LeftNode, currentNode.RightNode);
                     }
 
-                    if (parent.RightNode != null && parent.RightNode.CompareTo(current.Value) == 0)
+                    if (parentNode.RightNode != null && parentNode.RightNode.Value == currentNode.Value)
                     {
-                        parent.RightNode = current.LeftNode;
-                        AddTo(parent.RightNode, current.RightNode);
+                        parentNode.RightNode = currentNode.LeftNode;
+                        AddTo(parentNode.RightNode, currentNode.RightNode);
                     }
                 }
             }
@@ -102,25 +102,23 @@ namespace BinarySearchTree
 
         private BinaryTreeNode FindByValue(int value, BinaryTreeNode headOfSubtree = null)
         {
-            BinaryTreeNode current = headOfSubtree ?? _head;
+            BinaryTreeNode currentNode = headOfSubtree ?? _head;
             
-            while (current != null)
+            while (currentNode != null)
             {
-                int result = current.CompareTo(value);
-
-                if (result > 0)
+                if (currentNode.Value > value)
                 {
-                    current = current.LeftNode;
+                    currentNode = currentNode.LeftNode;
                 }
-                else if (result < 0)
+                else if (currentNode.Value < value)
                 {
-                    current = current.RightNode;
+                    currentNode = currentNode.RightNode;
                 }
                 else
                     break;
             }
 
-            return current;
+            return currentNode;
         }
         
         public void PrintTree()
@@ -266,9 +264,9 @@ namespace BinarySearchTree
                     parentNode.RightNode.LeftNode.ParentNode = parentNode.RightNode;
                 }
 
-                if (parentNode.RightNode.LeftNode != null)
+                if (parentNode.RightNode.RightNode != null)
                 {
-                    parentNode.RightNode.LeftNode.ParentNode = parentNode.RightNode;
+                    parentNode.RightNode.RightNode.ParentNode = parentNode.RightNode;
                 }
             }
         }

@@ -17,11 +17,5 @@ namespace BinarySearchTree
         
         public BinaryTreeNode ParentNode { get; set; }
         public int Value { get; set; }
-
-
-        public int CompareTo(int other)
-        {
-            return Value.CompareTo(other);
-        }
     }
 }
