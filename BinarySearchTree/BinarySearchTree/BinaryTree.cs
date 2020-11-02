@@ -25,8 +25,8 @@ namespace BinarySearchTree
                 if (parentNode.LeftNode == null)
                 {
                     parentNode.LeftNode = insertNode;
+                    parentNode.LeftSubtreeSize++;
                     insertNode.ParentNode = parentNode;
-                    insertNode.ParentNode.LeftSubtreeSize++;
                 }
                 else
                 {
@@ -39,8 +39,8 @@ namespace BinarySearchTree
                 if (parentNode.RightNode == null)
                 {
                     parentNode.RightNode = insertNode;
+                    parentNode.RightSubtreeSize++;
                     insertNode.ParentNode = parentNode;
-                    insertNode.ParentNode.RightSubtreeSize++;
                 }
                 else
                 {
