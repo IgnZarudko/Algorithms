@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace BinarySearchTree
 {
@@ -25,9 +26,11 @@ namespace BinarySearchTree
                 {
                     parentNode.LeftNode = insertNode;
                     insertNode.ParentNode = parentNode;
+                    insertNode.ParentNode.LeftSubtreeSize++;
                 }
                 else
                 {
+                    parentNode.LeftSubtreeSize++;
                     AddTo(parentNode.LeftNode, insertNode);
                 }
             }
@@ -37,68 +40,17 @@ namespace BinarySearchTree
                 {
                     parentNode.RightNode = insertNode;
                     insertNode.ParentNode = parentNode;
+                    insertNode.ParentNode.RightSubtreeSize++;
                 }
                 else
                 {
+                    parentNode.RightSubtreeSize++;
                     AddTo(parentNode.RightNode, insertNode);
                 }
             }
         }
 
         public bool Contains(int value) => FindByValue(value) != null;
-
-        public bool Remove(int value)
-        {
-            BinaryTreeNode currentNode = FindByValue(value);
-
-            if (currentNode == null)
-            {
-                return false;
-            }
-            
-            BinaryTreeNode parentNode = currentNode.ParentNode;
-            
-            if (currentNode.RightNode == null || currentNode.LeftNode == null)
-            {
-                BinaryTreeNode nodeToPlace = currentNode.RightNode ?? currentNode.LeftNode;
-                if (parentNode == null)
-                {
-                    _head = nodeToPlace;
-                }
-                else
-                {
-                    if (parentNode.LeftNode.Value == currentNode.Value)
-                        parentNode.LeftNode = nodeToPlace;
-                    else
-                        parentNode.RightNode = nodeToPlace;
-                }
-            }
-
-            if (currentNode.RightNode != null && currentNode.LeftNode != null)
-            {
-                if (parentNode == null)
-                {
-                    _head = currentNode.RightNode;
-                    AddTo(_head, currentNode.LeftNode);
-                }
-                else
-                {
-                    if (parentNode.LeftNode != null && parentNode.LeftNode.Value == currentNode.Value)
-                    {
-                        parentNode.LeftNode = currentNode.LeftNode;
-                        AddTo(parentNode.LeftNode, currentNode.RightNode);
-                    }
-
-                    if (parentNode.RightNode != null && parentNode.RightNode.Value == currentNode.Value)
-                    {
-                        parentNode.RightNode = currentNode.LeftNode;
-                        AddTo(parentNode.RightNode, currentNode.RightNode);
-                    }
-                }
-            }
-            
-            return true;
-        }
 
         private BinaryTreeNode FindByValue(int value, BinaryTreeNode headOfSubtree = null)
         {
@@ -126,14 +78,14 @@ namespace BinarySearchTree
             TreePrinter.PrintNode(_head);
         }
 
-        public List<int> GetAscendingSequence()
+        public List<int> AscendingSequence()
         {
             List<int> ascendingList = new List<int>();
             InAscendingOrderWalk(_head, ascendingList);
             return ascendingList;
         }
 
-        public List<int> GetDescendingSequence()
+        public List<int> DescendingSequence()
         {
             List<int> descendingList = new List<int>();
             InDescendingOrderWalk(_head, descendingList);
@@ -160,13 +112,24 @@ namespace BinarySearchTree
             }
         }
 
-        public int FindKthMinimalElement(int k, BinaryTreeNode headOfSubtree = null)
+        public BinaryTreeNode FindKthMinimalElement(int k, BinaryTreeNode headOfSubtree = null)
         {
             headOfSubtree ??= _head;
-            List<int> listOfElements = new List<int>();
-            InAscendingOrderWalk(headOfSubtree, listOfElements);
-            
-            return listOfElements[k - 1];
+
+            while (headOfSubtree.LeftSubtreeSize + 1 != k)
+            {
+                if (headOfSubtree.LeftSubtreeSize + 1 < k)
+                {
+                    k -= headOfSubtree.LeftSubtreeSize + 1;
+                    headOfSubtree = headOfSubtree.RightNode;
+                }
+                else
+                {
+                    headOfSubtree = headOfSubtree.LeftNode;
+                }
+            }
+
+            return headOfSubtree;
         }
         public void BalanceTree()
         {
@@ -175,17 +138,15 @@ namespace BinarySearchTree
 
         private void GetBalancedSubTree(BinaryTreeNode headOfSubtree)
         {
-            List<int> listOfElements = new List<int>();
-            InAscendingOrderWalk(headOfSubtree, listOfElements);
-
-            if (listOfElements.Count <= 1)
+            if (headOfSubtree.LeftSubtreeSize + headOfSubtree.RightSubtreeSize <= 1)
             {
                 return;
             }
-
-            int middleElement = listOfElements[listOfElements.Count / 2];
-            BinaryTreeNode nodeToHead = FindByValue(middleElement);
             
+            int middleElement = (headOfSubtree.LeftSubtreeSize + headOfSubtree.RightSubtreeSize + 1) / 2;
+            
+            BinaryTreeNode nodeToHead = FindKthMinimalElement(middleElement + 1, headOfSubtree);
+
             while (nodeToHead.Value != headOfSubtree.Value && nodeToHead.ParentNode != null)
             {
                 BinaryTreeNode parentNode = nodeToHead.ParentNode;
@@ -220,6 +181,10 @@ namespace BinarySearchTree
             parentNode.RightNode.LeftNode = nodeRight;
             
             SetParentNodes(ref parentNode);
+
+            parentNode.LeftNode?.CountSubtreeSizes();
+            parentNode.RightNode?.CountSubtreeSizes();
+            parentNode.CountSubtreeSizes();
         }
 
         private void RotateLeft(ref BinaryTreeNode parentNode)
@@ -236,8 +201,12 @@ namespace BinarySearchTree
 
             parentNode.LeftNode.LeftNode = parentLeft;
             parentNode.LeftNode.RightNode = nodeLeft;
-
+            
             SetParentNodes(ref parentNode);
+            
+            parentNode.LeftNode?.CountSubtreeSizes();
+            parentNode.RightNode?.CountSubtreeSizes();
+            parentNode.CountSubtreeSizes();
         }
 
         private void SetParentNodes(ref BinaryTreeNode parentNode)

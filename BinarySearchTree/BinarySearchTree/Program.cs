@@ -21,7 +21,7 @@ namespace BinarySearchTree
             binaryTree.PrintTree();
 
             Console.WriteLine("Ascending sequence:");
-            foreach (int number in binaryTree.GetAscendingSequence())
+            foreach (int number in binaryTree.AscendingSequence())
             {
                 Console.Write($"{number} ");
             }
@@ -29,15 +29,15 @@ namespace BinarySearchTree
             Console.WriteLine();
             
             Console.WriteLine("Descending sequence:");
-            foreach (int number in binaryTree.GetDescendingSequence())
+            foreach (int number in binaryTree.DescendingSequence())
             {
                 Console.Write($"{number} ");
             }
             
             Console.WriteLine();
 
-            int k = 3;
-            Console.WriteLine($"k-th minimal element is: {binaryTree.FindKthMinimalElement(3)} (k = {k})");
+            int k = 5;
+            Console.WriteLine($"k-th minimal element is: {binaryTree.FindKthMinimalElement(k).Value} (k = {k})");
 
             binaryTree.BalanceTree();
             
