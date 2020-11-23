@@ -10,8 +10,8 @@ namespace BinarySearchTree
         {
             BinaryTree binaryTree = new BinaryTree();
 
-            // int[] numbersToAdd = new[] {1, 2, 9, 6, 7, 4, 10};
-            int[] numbersToAdd = new[] {70, 60, 50, 30, 20, 40, 80};
+            int[] numbersToAdd = new[] {1, 2, 9, 6, 7, 4, 10};
+            // int[] numbersToAdd = new[] {70, 60, 50, 30, 20, 40, 80};
 
             foreach (int number in numbersToAdd)
             {

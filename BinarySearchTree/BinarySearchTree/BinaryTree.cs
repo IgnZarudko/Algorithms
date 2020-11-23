@@ -50,29 +50,6 @@ namespace BinarySearchTree
             }
         }
 
-        public bool Contains(int value) => FindByValue(value) != null;
-
-        private BinaryTreeNode FindByValue(int value, BinaryTreeNode headOfSubtree = null)
-        {
-            BinaryTreeNode currentNode = headOfSubtree ?? _head;
-            
-            while (currentNode != null)
-            {
-                if (currentNode.Value > value)
-                {
-                    currentNode = currentNode.LeftNode;
-                }
-                else if (currentNode.Value < value)
-                {
-                    currentNode = currentNode.RightNode;
-                }
-                else
-                    break;
-            }
-
-            return currentNode;
-        }
-        
         public void PrintTree()
         {
             TreePrinter.PrintNode(_head);
@@ -133,10 +110,10 @@ namespace BinarySearchTree
         }
         public void BalanceTree()
         {
-            GetBalancedSubTree(_head);
+            BalanceSubTree(_head);
         }
 
-        private void GetBalancedSubTree(BinaryTreeNode headOfSubtree)
+        private void BalanceSubTree(BinaryTreeNode headOfSubtree)
         {
             if (headOfSubtree.LeftSubtreeSize + headOfSubtree.RightSubtreeSize <= 1)
             {
@@ -161,8 +138,8 @@ namespace BinarySearchTree
                 nodeToHead = parentNode;
             }
             
-            GetBalancedSubTree(nodeToHead.LeftNode);
-            GetBalancedSubTree(nodeToHead.RightNode);
+            BalanceSubTree(nodeToHead.LeftNode);
+            BalanceSubTree(nodeToHead.RightNode);
         }
 
         private void RotateRight(ref BinaryTreeNode parentNode)
