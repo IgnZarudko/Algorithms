@@ -13,11 +13,11 @@ namespace Hashing
             // DemoProbingHashTable();
             // DemoDoubleHashTable();
 
-            int amountOfKeyLists = 20;
-            int lengthOfSeveralList = 80;
-            int rangeOfValues = 1000;
+            int amountOfKeyLists = 200;
+            int lengthOfSeveralList = 800;
+            int rangeOfValues = 10000;
             
-            int M = 25;
+            int M = 250;
 
 
             List<int>[] keyLists = GenerateKeys(amountOfKeyLists, lengthOfSeveralList, rangeOfValues);
@@ -29,7 +29,7 @@ namespace Hashing
             for (int i = 0; i < amountOfKeyLists; i++)
             {
                 ChainHashTable chainHashTableKnuth = new ChainHashTable(M, 0.6180339887);
-                ChainHashTable chainHashTableCustom = new ChainHashTable(M, 0.7546565213);
+                ChainHashTable chainHashTableCustom = new ChainHashTable(M, 0.876876432);
 
                 foreach (List<int> list in keyLists)
                 {
@@ -88,11 +88,11 @@ namespace Hashing
         
         private static void DemoChainingHashTable()
         {
-            ChainHashTable chainHashTable = new ChainHashTable(15, 0.616545);
+            ChainHashTable chainHashTable = new ChainHashTable(150, 0.616545);
             
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 300; i++)
             {
-                chainHashTable.Add(i, 30 - i);
+                chainHashTable.Add(i, 300 - i);
             }
 
             List<Node>[] array = chainHashTable.ArrayOfNodes;
@@ -117,7 +117,7 @@ namespace Hashing
                 }
             }
             
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 300; i++)
             {
                 Console.Write($"{chainHashTable.Get(i)} ");
             }
