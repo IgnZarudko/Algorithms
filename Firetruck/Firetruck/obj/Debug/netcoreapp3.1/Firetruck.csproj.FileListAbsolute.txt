@@ -1,0 +1,13 @@
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\bin\Debug\netcoreapp3.1\Firetruck.exe
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\bin\Debug\netcoreapp3.1\Firetruck.deps.json
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\bin\Debug\netcoreapp3.1\Firetruck.runtimeconfig.json
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\bin\Debug\netcoreapp3.1\Firetruck.runtimeconfig.dev.json
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\bin\Debug\netcoreapp3.1\Firetruck.dll
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\bin\Debug\netcoreapp3.1\Firetruck.pdb
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\obj\Debug\netcoreapp3.1\Firetruck.csprojAssemblyReference.cache
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\obj\Debug\netcoreapp3.1\Firetruck.AssemblyInfoInputs.cache
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\obj\Debug\netcoreapp3.1\Firetruck.AssemblyInfo.cs
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\obj\Debug\netcoreapp3.1\Firetruck.csproj.CoreCompileInputs.cache
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\obj\Debug\netcoreapp3.1\Firetruck.dll
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\obj\Debug\netcoreapp3.1\Firetruck.pdb
+C:\Users\User\Dropbox\University\Algorithms\Firetruck\Firetruck\obj\Debug\netcoreapp3.1\Firetruck.genruntimeconfig.cache
