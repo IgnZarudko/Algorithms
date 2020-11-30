@@ -4,12 +4,12 @@ using System.Linq;
 
 namespace Firetruck
 {
-    public class FireTruckStationBuilder : IFireTruckStationBuilder
+    public class FireTruckStationBuilderFloyd : IFireTruckStationBuilder
     {
         private int[][] SpecialRoadMapLengths { get; }
         private int[][] SpecialRoadMapWays { get; }
 
-        public FireTruckStationBuilder(int[][] cityRoadMap)
+        public FireTruckStationBuilderFloyd(int[][] cityRoadMap)
         {
             int amountOfCrossRoads = cityRoadMap.Length;
             SpecialRoadMapLengths = new int[amountOfCrossRoads][];
@@ -43,6 +43,15 @@ namespace Firetruck
             int crossroadNumber = FindIndexOfSuitableCrossroad();
 
             List<List<int>> ways = RestoreWays(crossroadNumber);
+
+            foreach (var t in SpecialRoadMapLengths)
+            {
+                for (int j = 0; j < SpecialRoadMapLengths.Length; j++)
+                {
+                    Console.Write($"{t[j]} ");
+                }
+                Console.WriteLine();
+            }
             
             return (crossroadNumber, ways);
         }
@@ -92,8 +101,8 @@ namespace Firetruck
                 else if (iterationRoadMax == maxLengthOfSuitableRoad)
                 {
                     int amountOfRoads = SpecialRoadMapLengths.Length;
-                    if (SpecialRoadMapLengths[iterationRoad].Sum() / amountOfRoads <
-                        SpecialRoadMapLengths[indexOfSuitableRoad].Sum() / amountOfRoads)
+                    if ((SpecialRoadMapLengths[iterationRoad].Sum() - SpecialRoadMapLengths[iterationRoad][iterationRoad]) / amountOfRoads <
+                        (SpecialRoadMapLengths[indexOfSuitableRoad].Sum() - SpecialRoadMapLengths[indexOfSuitableRoad][indexOfSuitableRoad])  / amountOfRoads)
                     {
                         indexOfSuitableRoad = iterationRoad;
                         maxLengthOfSuitableRoad = iterationRoadMax;
