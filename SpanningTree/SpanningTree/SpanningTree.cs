@@ -45,40 +45,30 @@ namespace SpanningTree
         public static Queue<Edge> SpanningTreeKruskal(int[][] matrixOfWeights)
         {
             List<Edge> edges = ListOfEdges(matrixOfWeights);
-            
             Queue<Edge> spanningTree = new Queue<Edge>();
-            HashSet<int> verticesInTree = new HashSet<int>();
 
-            
-            List<List<int>> chains = new List<List<int>>();
-            
-            spanningTree.Enqueue(edges[0]);
-            verticesInTree.Add(edges[0].Vertice1);
-            verticesInTree.Add(edges[0].Vertice2);
-            edges.RemoveAt(0);
-            
-            HashSet<int> hashSet = new HashSet<int>();
+            int[] setOfVertex = new int[matrixOfWeights.Length];
 
-            do
-            {
-                Edge edgeToRemove = null;
-                foreach (var edgeToAdd in edges)
-                {
-                    if (!(verticesInTree.Contains(edgeToAdd.Vertice1) && verticesInTree.Contains(edgeToAdd.Vertice2)))
-                    {
-                        verticesInTree.Add(edgeToAdd.Vertice1);
-                        verticesInTree.Add(edgeToAdd.Vertice2);
-                        spanningTree.Enqueue(edgeToAdd);
-                        edgeToRemove = edgeToAdd;
-                        break;
+            edges.Sort();
+            for (int i = 0; i < setOfVertex.Length; i++) {
+                setOfVertex[i] = i;
+            }
+
+            foreach (Edge edge in  edges) {
+                int vertexA = edge.Vertice1;
+                int vertexB = edge.Vertice2;
+
+                if (setOfVertex[vertexA] != setOfVertex[vertexB]) {
+                    spanningTree.Enqueue(edge);
+                    int newSet = setOfVertex[vertexA];
+                    int oldSet = setOfVertex[vertexB];
+                    for (int j = 0; j < setOfVertex.Length; j++) {
+                        if (setOfVertex[j] == oldSet) {
+                            setOfVertex[j] = newSet;
+                        }
                     }
                 }
-
-                if (edgeToRemove != null)
-                    edges.Remove(edgeToRemove);
-                
-            } while (verticesInTree.Count < matrixOfWeights.Length || spanningTree.Count + 1 < matrixOfWeights.Length);
-
+            }
 
             return spanningTree;
         }
