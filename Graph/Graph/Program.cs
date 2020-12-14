@@ -8,8 +8,8 @@ namespace Graph
     {
         static void Main(string[] args)
         {
-            // DemoGraphWithComponents();
-            // EulerDemo();
+            DemoGraphWithComponents();
+            EulerDemo();
             BipartiteDemo();
         }
 
@@ -96,7 +96,7 @@ namespace Graph
                 new[] {1, 3},
                 new[] {0, 3, 4}
             };
-            
+
             List<List<int>> bipartiteGraphList = new List<List<int>>();
 
             foreach (int[] vertex in vertexesOfBipartiteGraph)

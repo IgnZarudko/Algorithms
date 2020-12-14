@@ -13,7 +13,7 @@ namespace Firetruck
             DisplayInfoDijkstra();
         }
 
-        private static void DisplayInfoDijkstra()
+        private static void DisplayInfoFloyd()
         {
             int[][] roadMap = new[]
             {
@@ -44,7 +44,7 @@ namespace Firetruck
             }
         }
 
-        private static void DisplayInfoFloyd()
+        private static void DisplayInfoDijkstra()
         {
             int[][] roadMap = new[]
             {

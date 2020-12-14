@@ -106,8 +106,12 @@ namespace Graph
         {
             List<int> firstPart = new List<int>();
             List<int> secondPart = new List<int>();
+
+            foreach (var component in ConnectivityComponents)
+            {
+                DepthColorSearch(component[0], firstPart, secondPart);
+            }
             
-            DepthColorSearch(0, firstPart, secondPart);
             if (firstPart.Count + secondPart.Count != AdjacencyLists.Count)
                 return (null, null);
             
