@@ -26,23 +26,20 @@ namespace Boxing
 
             foreach (double part in parts)
             {
-                if (!boxes[^1].Put(part))
-                {
-                    bool isPutInExistingBox = false;
-                    foreach (Box box in boxes)
+                bool isPutInExistingBox = false;
+                foreach (Box box in boxes)
+                { 
+                    if (box.Put(part))
                     {
-                        if (box.Put(part))
-                        {
-                            isPutInExistingBox = true;
-                            break;
-                        }
+                        isPutInExistingBox = true;
+                        break; 
                     }
+                }
 
-                    if (!isPutInExistingBox)
-                    {
-                        boxes.Add(new Box());
-                        boxes[^1].Put(part);
-                    }
+                if (!isPutInExistingBox)
+                {
+                    boxes.Add(new Box()); 
+                    boxes[^1].Put(part);
                 }
             }
 
