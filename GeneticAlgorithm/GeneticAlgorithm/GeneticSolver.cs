@@ -7,7 +7,7 @@ namespace GeneticAlgorithm
 {
     public class GeneticSolver
     {
-        private static readonly StringBuilder LogStringBuilder = new StringBuilder();
+        private static readonly StringBuilder LogStringBuilder = new ();
         private static readonly Random Random = new ();
         private static int GetBorderForCrossovers() => Random.Next(3) + 1;
 
@@ -61,7 +61,6 @@ namespace GeneticAlgorithm
         private readonly int _mutantsAmount;
         
         private readonly double _mutationPossibility;
-        private readonly double _substitutionPossibility;
 
         private List<SolutionVector> _population;
 
@@ -73,8 +72,7 @@ namespace GeneticAlgorithm
             int selectionAmount, 
             int childrenAmount,
             int mutantsAmount, 
-            double mutationPossibility, 
-            double substitutionPossibility
+            double mutationPossibility 
             )
         {
             _targetEquation = targetEquation;
@@ -85,9 +83,8 @@ namespace GeneticAlgorithm
             _childrenAmount = childrenAmount;
             _mutantsAmount = mutantsAmount;
             _mutationPossibility = mutationPossibility;
-            _substitutionPossibility = substitutionPossibility;
 
-            LogStringBuilder.Append("Initializing Start Population... \n");
+            Console.WriteLine("Initializing Start Population... \n");
             InitializeStartPopulation();
         }
 
@@ -105,19 +102,17 @@ namespace GeneticAlgorithm
                     .Take(_populationSize)
                     .ToList();
 
-                LogStringBuilder.AppendLine($"Generation {generation}");
-                LogStringBuilder.AppendLine($"Using multi-point crossover: {generation % 2 == 0}");
-                LogStringBuilder.AppendLine($"Closest solution vector: {childValues[0]}");
-                LogStringBuilder.AppendLine($"How far: {_targetEquation(childValues[0])}");
+                Console.WriteLine($"Generation {generation}");
+                Console.WriteLine($"Using multi-point crossover: {generation % 2 == 0}");
+                Console.WriteLine($"Closest solution vector: {childValues[0]}");
+                Console.WriteLine($"How far: {_targetEquation(childValues[0])}");
 
                 if (_targetEquation(childValues[0]) == 0)
                 {
-                    LogStringBuilder.AppendLine($"Solution Vector found: {childValues[0]}");
+                    Console.WriteLine($"Solution Vector found: {childValues[0]}");
                     return childValues[0];
                 }
-
-                LogStringBuilder.AppendLine("Replacing population with new one");
-                LogStringBuilder.AppendLine("-----------------------------------------");
+                
                 _population = childValues;
             }
         }
@@ -130,7 +125,7 @@ namespace GeneticAlgorithm
         private List<SolutionVector> SelectRandomVectors()
         {
             return _population
-                .OrderBy(vec => Random.NextDouble())
+                .OrderBy(_ => Random.NextDouble())
                 .Take(_selectionAmount)
                 .ToList();
         }
@@ -145,7 +140,7 @@ namespace GeneticAlgorithm
             {
                 for (int j = 0; j < SolutionVector.Count; j++)
                 {
-                    if (Random.NextDouble() >= _mutationPossibility)
+                    if (Random.NextDouble() <= _mutationPossibility)
                     {
                         mutant[j] = RandomValue();
                     }
@@ -183,7 +178,7 @@ namespace GeneticAlgorithm
 
         private SolutionVector GenerateSolutionVector()
         {
-            return new SolutionVector(RandomValue(), RandomValue(), RandomValue(), RandomValue(), RandomValue());
+            return new (RandomValue(), RandomValue(), RandomValue(), RandomValue(), RandomValue());
         }
 
         private int RandomValue() => Random.Next(_minValue, _maxValue);
