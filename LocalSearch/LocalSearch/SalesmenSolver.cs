@@ -22,61 +22,68 @@ namespace LocalSearch
 
         private List<int> RandomRoute() => _vertices.OrderBy(Random.Next).ToList();
 
-        public (int minWeight, List<int> minRoute) Search()
+        public (int minimalWeight, List<int> minimalRoute) Search()
         {
             List<int> previousRoute = null;
             var currentRoute = RandomRoute();
             
-            int minWeight = 0;
-            List<int> minRoute = null;
+            int minimalWeight = 0;
+            List<int> minimalRoute = null;
+
+            Console.WriteLine("-------------");
+            Console.WriteLine($"Start Route: {RouteString(currentRoute)}");
+            Console.WriteLine($"Its Weight: {RouteWeight(currentRoute)}");
             
             while (previousRoute != currentRoute)
             {
                 previousRoute = currentRoute;
-                (minWeight, minRoute) = SearchOnce(currentRoute);
-                currentRoute = minRoute;
-                Console.WriteLine($"Weight: {minWeight} \nRoute: {RouteToString(currentRoute)}");
+                (minimalWeight, minimalRoute) = SearchOnce(currentRoute);
+                currentRoute = minimalRoute;
             }
 
-            return (minWeight, minRoute);
+            return (minimalWeight, minimalRoute);
         }
 
-        private (int minWeight, List<int> minRoute) SearchOnce(List<int> startRoute)
+        private (int minimalWeight, List<int> minimalRoute) SearchOnce(List<int> startRoute)
         {
-            var minRoute = startRoute;
-            var minWeight = GetRouteWeight(minRoute);
+            var minimalRoute = startRoute;
+            var minimalWeight = RouteWeight(minimalRoute);
             
-            var neighborhood = GetNeighborhood(minRoute);
+            var neighborhood = Neighborhood(minimalRoute);
             
             foreach (var neighbor in neighborhood)
             {
-                var neighborWeight = GetRouteWeight(neighbor);
+                var neighborWeight = RouteWeight(neighbor);
 
-                if (neighborWeight < minWeight)
+                if (neighborWeight < minimalWeight)
                 {
-                    minWeight = neighborWeight;
-                    minRoute = neighbor;
+                    minimalWeight = neighborWeight;
+                    minimalRoute = neighbor;
                 }
             }
+            
+            Console.WriteLine("-------------");
+            Console.WriteLine($"New minimal Route: {RouteString(minimalRoute)}");
+            Console.WriteLine($"Its Weight: {minimalWeight}");
 
-            return (minWeight, minRoute);
+            return (minimalWeight, minimalRoute);
         }
 
-        private static string RouteToString(List<int> route)
+        private static string RouteString(List<int> route)
         {
             var builder = new StringBuilder(" ");
-            foreach (var vertex in route)
+            foreach (int vertex in route)
                 builder.Append(vertex).Append(" -> ");
 
             return builder.Append(route[0]).ToString();
         }
 
-        private int GetRouteWeight(List<int> route)
+        private int RouteWeight(List<int> route)
         {
             int weight = 0;
             int n = route.Count;
             
-            for (var i = 0; i < n; i++)
+            for (int i = 0; i < n; i++)
             {
                 weight += _weights[route[i % n]][route[(i + 1) % n]];
             }
@@ -84,13 +91,13 @@ namespace LocalSearch
             return weight;
         }
         
-        private static List<List<int>> GetNeighborhood(List<int> route)
+        private static List<List<int>> Neighborhood(List<int> route)
         {
             var neighborhood = new List<List<int>>();
 
-            for (var i = 0; i < route.Count - 2; i++)
+            for (int i = 0; i < route.Count - 2; i++)
             {
-                for (var j = i + 2; j < route.Count; j++)
+                for (int j = i + 2; j < route.Count; j++)
                 {
                     var neighbor = new List<int>(route);
                     (neighbor[i], neighbor[j]) = (neighbor[j], neighbor[i]);

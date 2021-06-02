@@ -24,16 +24,23 @@ namespace LocalSearch
             var random = new Random();
             var weights = new List<List<int>>();
             
-            for (var i = 0; i < size; i++)
+            for (int i = 0; i < size; i++)
             {
                 weights.Add(new List<int>());
                 for (var j = 0; j < size; j++)
+                {
                     weights[i].Add(random.Next(1, maxValue));
+                }
             }
 
-            for (var i = 1; i < size; i++)
-            for (var j = 0; j < i; j++)
-                weights[i][j] = weights[j][i];
+            for (int i = 1; i < size; i++)
+            {
+                for (int j = 0; j < i; j++)
+                {
+                    weights[i][j] = weights[j][i];
+                }
+            }
+                
 
             return weights;
         }
@@ -47,9 +54,9 @@ namespace LocalSearch
                 .ToString()
                 .Length + 1;
 
-            foreach (var t in matrix)
+            foreach (var line in matrix)
             {
-                foreach (var value in t)
+                foreach (int value in line)
                 {
                     Console.Write($"{{0, {maxWidthOfNumber}}}", (value == int.MaxValue) ? "M" : value.ToString());
                 }
